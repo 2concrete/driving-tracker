@@ -1,5 +1,5 @@
-import { useState } from "react";
-import Landing from "./components/Landing";
+import { useState, useEffect } from "react";
+import LandingPage from "./pages/LandingPage";
 
 type Supervisor = {
   name: string;
@@ -10,7 +10,26 @@ type Supervisor = {
 const App = () => {
   const [supervisors, setSupervisors] = useState<Supervisor[]>([]);
 
-  return <div>{supervisors.length === 0 && <Landing />}</div>;
+  const addSupervisor = (name: string, nickname: string, license: number) => {
+    const newSupervisor = {
+      name: name,
+      nickname: nickname,
+      license: license,
+    };
+    setSupervisors([...supervisors, newSupervisor]);
+  };
+
+  useEffect(() => {
+    console.log(supervisors);
+  }, [supervisors]);
+
+  return (
+    <div className="bg-neutral-100">
+      {supervisors.length === 0 && (
+        <LandingPage addSupervisor={addSupervisor} />
+      )}
+    </div>
+  );
 };
 
 export default App;
