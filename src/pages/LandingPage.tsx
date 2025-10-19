@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiChevronRight } from "react-icons/fi";
+import { useNavigate } from "react-router";
 
 type LandingProps = {
   addSupervisor: (name: string, nickname: string, license: number) => void;
@@ -8,6 +9,8 @@ type LandingProps = {
 
 const LandingPage = ({ addSupervisor }: LandingProps) => {
   const [stage, setStage] = useState<number>(1);
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
@@ -28,12 +31,12 @@ const LandingPage = ({ addSupervisor }: LandingProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const licenseNumber = Number(license);
-    if (name && nickname && !isNaN(licenseNumber)) {
-      addSupervisor(name, nickname, licenseNumber);
-      setName("");
-      setNickname("");
-      setLicense("");
-    }
+    console.log(license);
+    addSupervisor(name, nickname, licenseNumber);
+    setName("");
+    setNickname("");
+    setLicense("");
+    setStage(3);
   };
 
   return (
@@ -42,7 +45,7 @@ const LandingPage = ({ addSupervisor }: LandingProps) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 1.5, ease: "easeIn" }}
           className="flex flex-col gap-1 items-center"
         >
           <p className="text-3xl font-[Segoe_UI] ">Welcome</p>
@@ -61,7 +64,7 @@ const LandingPage = ({ addSupervisor }: LandingProps) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 1.5, ease: "easeIn" }}
           className="flex flex-col transition-all gap-1 items-center"
         >
           <p className="text-2xl mb-3">New Supervisor</p>
@@ -93,7 +96,6 @@ const LandingPage = ({ addSupervisor }: LandingProps) => {
               </span>
               <button
                 type="submit"
-                onClick={() => setStage(3)}
                 className="border-1 border-neutral-400 rounded p-0.5 mt-1 hover:bg-blue-100 transition-all cursor-pointer"
               >
                 Add
@@ -106,11 +108,14 @@ const LandingPage = ({ addSupervisor }: LandingProps) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 1.5, ease: "easeIn" }}
           className="flex flex-col items-center"
         >
           <p className="text-2xl font-[Segoe_UI] mb-1">Supervisor Added</p>
-          <button className="flex items-center border-1 border-neutral-400 cursor-pointer hover:bg-blue-100 rounded-full pl-4 p-2 pr-1 hover:opacity-70 transition-all text-lg mt-4">
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="flex items-center border-1 border-neutral-400 cursor-pointer hover:bg-blue-100 rounded-full pl-4 p-2 pr-1 hover:opacity-70 transition-all text-lg mt-4"
+          >
             <p>Next</p>
             <FiChevronRight className="stroke-1 size-5 mt-0.5" />
           </button>
