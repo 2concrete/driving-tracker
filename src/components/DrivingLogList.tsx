@@ -16,7 +16,9 @@ type DrivingLogListProps = {
 };
 
 const DrivingLogList = ({ drivingLog }: DrivingLogListProps) => {
-  return <div></div>;
+  return (
+    <div className="border-1 border-neutral-400 h-100 rounded shadow-xl"></div>
+  );
 };
 
 export default DrivingLogList;

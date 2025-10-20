@@ -61,7 +61,11 @@ const App = () => {
         />
         <Route
           path="/dashboard"
-          element=<Dashboard userData={userData} drivingLog={drivingLog} />
+          element=<Dashboard
+            supervisors={supervisors}
+            userData={userData}
+            drivingLog={drivingLog}
+          />
         />
       </Routes>
     </BrowserRouter>
