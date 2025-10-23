@@ -15,7 +15,7 @@ type DrivingLogListProps = {
   drivingLog: DrivingLogEntry[];
 };
 
-const DrivingLogList = ({ drivingLog }: DrivingLogListProps) => {
+const DrivingLogList = ({}: DrivingLogListProps) => {
   return (
     <div className="border-1 border-neutral-400 h-100 rounded shadow-xl"></div>
   );

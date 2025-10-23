@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { SetStateAction } from "react";
 import { PiXCircleThin } from "react-icons/pi";
 

@@ -43,7 +43,7 @@ const Dashboard = ({ userData, drivingLog, supervisors }: DashboardProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 100 }}
         transition={{ duration: 0.5, ease: "easeIn" }}
-        className="flex font-[Segoe_UI_Semilight] mx-auto lg:w-1/2 md:w-4/5 sm:w-11/12 flex-col gap-8"
+        className="flex font-segoe font-light mx-auto w-11/12 lg:w-1/2 md:w-4/5 sm:w-11/12 flex-col gap-8"
       >
         <div className="flex justify-between w-full mt-10">
           <div className="flex gap-2">
