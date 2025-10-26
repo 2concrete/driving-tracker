@@ -62,6 +62,7 @@ const App = () => {
         <Route
           path="/dashboard"
           element=<Dashboard
+            addSupervisor={addSupervisor}
             supervisors={supervisors}
             userData={userData}
             drivingLog={drivingLog}

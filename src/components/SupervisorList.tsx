@@ -4,7 +4,6 @@ import {
   PiPencilSimpleLineThin,
   PiTrashSimpleThin,
   PiUserPlusThin,
-  PiXCircleThin,
 } from "react-icons/pi";
 
 type Supervisor = {
@@ -15,10 +14,39 @@ type Supervisor = {
 
 type SupervisorListProps = {
   supervisors: Supervisor[];
+  addSupervisor: (name: string, nickname: string, license: number) => void;
 };
 
-const SupervisorList = ({ supervisors }: SupervisorListProps) => {
+const SupervisorList = ({
+  supervisors,
+  addSupervisor,
+}: SupervisorListProps) => {
   const [addingSupervisor, setAddingSupervisor] = useState<boolean>(false);
+  const [fullName, setFullName] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [license, setLicense] = useState<string>("");
+
+  const handleFullNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFullName(e.target.value);
+
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setNickname(e.target.value);
+
+  const handleLicenseChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLicense(e.target.value);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const licenseNumber = parseInt(license, 10);
+    if (Number.isNaN(licenseNumber)) {
+      return;
+    }
+    addSupervisor(fullName, nickname, licenseNumber);
+    setFullName("");
+    setNickname("");
+    setLicense("");
+    setAddingSupervisor(false);
+  };
 
   return (
     <motion.div
@@ -28,8 +56,11 @@ const SupervisorList = ({ supervisors }: SupervisorListProps) => {
       exit={{ opacity: 0 }}
       className="backdrop-blur-xs -webkit-backdrop-blur-xs flex flex-col gap-2 mt-2 absolute -right-1 top-9"
     >
-      {supervisors.map((supervisor) => (
-        <div className="border-1 border-neutral-400 rounded shadow px-1 flex justify-between">
+      {supervisors.map((supervisor, idx) => (
+        <div
+          key={idx}
+          className="border-1 border-neutral-400 rounded shadow px-1 flex justify-between"
+        >
           <div>
             <p>{supervisor.nickname}</p>
             <p className="relative bottom-1 text-sm opacity-70">
@@ -52,14 +83,29 @@ const SupervisorList = ({ supervisors }: SupervisorListProps) => {
         } border-neutral-400  rounded transition-all`}
       >
         {addingSupervisor ? (
-          <form className="relative px-1.5 flex flex-col gap-1 overflow-hidden">
+          <form
+            onSubmit={handleSubmit}
+            className="relative px-1.5 flex flex-col gap-1 overflow-hidden"
+          >
             <div>
               <label className="text-xs">Full Name</label>
-              <input className="border-1 border-neutral-400 rounded outline-none p-1"></input>
+              <input
+                onChange={handleFullNameChange}
+                value={fullName}
+                className="border-1 border-neutral-400 rounded outline-none p-1"
+              ></input>
               <label className="text-xs">Nickname</label>
-              <input className="border-1 border-neutral-400 rounded outline-none p-1"></input>
+              <input
+                onChange={handleNicknameChange}
+                value={nickname}
+                className="border-1 border-neutral-400 rounded outline-none p-1"
+              ></input>
               <label className="text-xs">License Number</label>
-              <input className="border-1 border-neutral-400 rounded outline-none p-1"></input>
+              <input
+                onChange={handleLicenseChange}
+                value={license}
+                className="border-1 border-neutral-400 rounded outline-none p-1"
+              ></input>
             </div>
             <div className="flex gap-1 mt-1">
               <button

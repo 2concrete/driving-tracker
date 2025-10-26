@@ -23,9 +23,15 @@ type DashboardProps = {
   userData: { name: string; hoursLogged: number };
   drivingLog: DrivingLogEntry[];
   supervisors: Supervisor[];
+  addSupervisor: (name: string, nickname: string, license: number) => void;
 };
 
-const Dashboard = ({ userData, drivingLog, supervisors }: DashboardProps) => {
+const Dashboard = ({
+  userData,
+  drivingLog,
+  supervisors,
+  addSupervisor,
+}: DashboardProps) => {
   const [showDrivingLogInput, setShowDrivingLogInput] =
     useState<boolean>(false);
 
@@ -73,7 +79,10 @@ const Dashboard = ({ userData, drivingLog, supervisors }: DashboardProps) => {
             </button>
             <AnimatePresence>
               {showSupervisorList && (
-                <SupervisorList supervisors={supervisors} />
+                <SupervisorList
+                  addSupervisor={addSupervisor}
+                  supervisors={supervisors}
+                />
               )}
             </AnimatePresence>
           </div>
