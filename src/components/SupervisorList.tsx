@@ -48,7 +48,7 @@ const SupervisorList = ({ supervisors }: SupervisorListProps) => {
       ))}
       <div
         className={`border-1 ${
-          addingSupervisor ? "h-55 w-51.5" : "h-9 w-35.5"
+          addingSupervisor ? "h-56 w-51.5" : "h-9 w-35.5"
         } border-neutral-400  rounded transition-all`}
       >
         {addingSupervisor ? (
@@ -61,7 +61,7 @@ const SupervisorList = ({ supervisors }: SupervisorListProps) => {
               <label className="text-xs">License Number</label>
               <input className="border-1 border-neutral-400 rounded outline-none p-1"></input>
             </div>
-            <div className="flex gap-1">
+            <div className="flex gap-1 mt-1">
               <button
                 type="submit"
                 className="border-1 w-11/12 border-neutral-400 p-1 rounded hover:bg-blue-100 transition-all cursor-pointer"
@@ -71,7 +71,7 @@ const SupervisorList = ({ supervisors }: SupervisorListProps) => {
               <button
                 type="button"
                 onClick={() => setAddingSupervisor(false)}
-                className="border-1 w-11/12 border-neutral-400 p-1 rounded hover:bg-red-200 transition-all cursor-pointer"
+                className="border-1 w-11/12 border-neutral-400 p-1 rounded hover:bg-red-100 transition-all cursor-pointer"
               >
                 Cancel
               </button>
