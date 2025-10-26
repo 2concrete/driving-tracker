@@ -4,6 +4,7 @@ import { PiChartLineUpThin, PiUsersThin } from "react-icons/pi";
 import DrivingLogList from "../components/DrivingLogList";
 import DrivingLogInput from "../components/DrivingLogInput";
 import { useState } from "react";
+import SupervisorList from "../components/SupervisorList";
 
 type Supervisor = {
   name: string;
@@ -27,6 +28,8 @@ type DashboardProps = {
 const Dashboard = ({ userData, drivingLog, supervisors }: DashboardProps) => {
   const [showDrivingLogInput, setShowDrivingLogInput] =
     useState<boolean>(false);
+
+  const [showSupervisorList, setShowSupervisorList] = useState<boolean>();
 
   return (
     <>
@@ -61,10 +64,18 @@ const Dashboard = ({ userData, drivingLog, supervisors }: DashboardProps) => {
               <PiChartLineUpThin className="size-5" />
             </button>
           </div>
-          <div>
-            <button className="cursor-pointer hover:opacity-70 transition-all w-fit gap-2 h-fit rounded p-2 shadow-xl border-1 border-neutral-400">
+          <div className="flex flex-col items-end relative">
+            <button
+              onClick={() => setShowSupervisorList(!showSupervisorList)}
+              className="cursor-pointer hover:opacity-70 transition-all w-fit gap-2 h-fit rounded p-2 shadow-xl border-1 border-neutral-400"
+            >
               <PiUsersThin className="size-5" />
             </button>
+            <AnimatePresence>
+              {showSupervisorList && (
+                <SupervisorList supervisors={supervisors} />
+              )}
+            </AnimatePresence>
           </div>
         </div>
         <DrivingLogList drivingLog={drivingLog} />
