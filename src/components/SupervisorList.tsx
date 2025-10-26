@@ -15,11 +15,13 @@ type Supervisor = {
 type SupervisorListProps = {
   supervisors: Supervisor[];
   addSupervisor: (name: string, nickname: string, license: number) => void;
+  deleteSupervisor: (license: number) => void;
 };
 
 const SupervisorList = ({
   supervisors,
   addSupervisor,
+  deleteSupervisor,
 }: SupervisorListProps) => {
   const [addingSupervisor, setAddingSupervisor] = useState<boolean>(false);
   const [fullName, setFullName] = useState<string>("");
@@ -68,7 +70,10 @@ const SupervisorList = ({
             </p>
           </div>
           <div className="p-0.5">
-            <button className="cursor-pointer hover:opacity-70 transition-all">
+            <button
+              onClick={() => deleteSupervisor(supervisor.license)}
+              className="cursor-pointer hover:opacity-70 transition-all"
+            >
               <PiTrashSimpleThin />
             </button>
             <button className="cursor-pointer hover:opacity-70 transition-all">

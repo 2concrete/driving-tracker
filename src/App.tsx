@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Dashboard from "./pages/Dashboard";
+import { del } from "framer-motion/client";
 
 type Supervisor = {
   name: string;
@@ -52,6 +53,12 @@ const App = () => {
     setSupervisors([...supervisors, newSupervisor]);
   };
 
+  const deleteSupervisor = (license: number) => {
+    setSupervisors(
+      supervisors.filter((supervisor) => license !== supervisor.license)
+    );
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -62,6 +69,7 @@ const App = () => {
         <Route
           path="/dashboard"
           element=<Dashboard
+            deleteSupervisor={deleteSupervisor}
             addSupervisor={addSupervisor}
             supervisors={supervisors}
             userData={userData}
