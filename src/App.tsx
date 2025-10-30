@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Dashboard from "./pages/Dashboard";
-import { del } from "framer-motion/client";
 
 type Supervisor = {
   name: string;
@@ -36,13 +35,17 @@ const App = () => {
 
   const [drivingLog, setDrivingLog] = useState<DrivingLogEntry[]>(() => {
     const saved = localStorage.getItem("drivingLog");
-    if (saved) JSON.parse(saved) as DrivingLogEntry[];
+    if (saved) return JSON.parse(saved) as DrivingLogEntry[];
     return [];
   });
 
   useEffect(() => {
     localStorage.setItem("supervisors", JSON.stringify(supervisors));
   }, [supervisors]);
+
+  useEffect(() => {
+    localStorage.setItem("drivingLog", JSON.stringify(drivingLog));
+  }, [drivingLog]);
 
   const addSupervisor = (name: string, nickname: string, license: number) => {
     const newSupervisor = {
@@ -59,6 +62,28 @@ const App = () => {
     );
   };
 
+  const addEntry = (
+    startTime: string,
+    finishTime: string,
+    supervisorName: string
+  ) => {
+    const supervisorObj = supervisors.find(
+      (sup) => sup.name === supervisorName
+    );
+
+    if (!supervisorObj) {
+      console.warn(`Supervisor "${supervisorName}" not found`);
+      return;
+    }
+
+    const newEntry: DrivingLogEntry = {
+      startTime,
+      finishTime,
+      supervisor: supervisorObj,
+      date: new Date().toLocaleDateString("en-AU"),
+    };
+    setDrivingLog((prev) => [...prev, newEntry]);
+  };
   return (
     <BrowserRouter>
       <Routes>
@@ -69,6 +94,7 @@ const App = () => {
         <Route
           path="/dashboard"
           element=<Dashboard
+            addEntry={addEntry}
             deleteSupervisor={deleteSupervisor}
             addSupervisor={addSupervisor}
             supervisors={supervisors}

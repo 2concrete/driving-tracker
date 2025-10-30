@@ -5,7 +5,6 @@ import DrivingLogList from "../components/DrivingLogList";
 import DrivingLogInput from "../components/DrivingLogInput";
 import { useState } from "react";
 import SupervisorList from "../components/SupervisorList";
-import { del } from "framer-motion/client";
 
 type Supervisor = {
   name: string;
@@ -26,12 +25,18 @@ type DashboardProps = {
   supervisors: Supervisor[];
   addSupervisor: (name: string, nickname: string, license: number) => void;
   deleteSupervisor: (license: number) => void;
+  addEntry: (
+    startTime: string,
+    finishTime: string,
+    supervisorName: string
+  ) => void;
 };
 
 const Dashboard = ({
   userData,
   drivingLog,
   supervisors,
+  addEntry,
   addSupervisor,
   deleteSupervisor,
 }: DashboardProps) => {
@@ -46,6 +51,7 @@ const Dashboard = ({
         {showDrivingLogInput && (
           <DrivingLogInput
             setShowDrivingLogInput={setShowDrivingLogInput}
+            addEntry={addEntry}
             supervisors={supervisors}
           />
         )}
